@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 from datetime import datetime
 
-API_URL = "https://80dd-181-129-180-130.ngrok-free.app"
+API_URL = "https://2468-181-129-180-130.ngrok-free.app"
 
 st.title("🧑‍💼 Aprobación de Permisos - Jefe Inmediato")
 
