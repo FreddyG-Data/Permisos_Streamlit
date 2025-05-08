@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 from datetime import date, time
 
-API_URL = "https://ae7f-181-129-180-130.ngrok-free.app"
+API_URL = "https://d64a-181-129-180-130.ngrok-free.app"
 
 st.title("📄 Solicitud de Permiso de Salida")
 
@@ -50,20 +50,23 @@ with st.form("solicitud_form"):
     enviar = st.form_submit_button("Enviar solicitud")
 
     if enviar:
-        hora_rango = f"{hora_inicio.strftime('%H:%M')} - {hora_fin.strftime('%H:%M')}"
-        data = {
-            "doc_empleado": st.session_state.doc_empleado,
-            "fecha_solicitada": fecha_solicitada.strftime('%Y-%m-%d'),
-            "hora_solicitada": hora_rango,
-            "dependencia": dependencia,
-            "solicitado_por": st.session_state.nombre,
-            "jefe_inmediato": jefe_inmediato
-        }
-        response = requests.post(f"{API_URL}/nueva_solicitud", json=data)
-        if response.status_code == 200:
-            st.success("✅ Solicitud registrada con éxito.")
+        if hora_fin <= hora_inicio:
+            st.error("❌ La hora de fin debe ser mayor que la hora de inicio.")
         else:
-            st.error("❌ Error al registrar la solicitud.")
+            hora_rango = f"{hora_inicio.strftime('%H:%M')} - {hora_fin.strftime('%H:%M')}"
+            data = {
+                "doc_empleado": st.session_state.doc_empleado,
+                "fecha_solicitada": fecha_solicitada.strftime('%Y-%m-%d'),
+                "hora_solicitada": hora_rango,
+                "dependencia": dependencia,
+                "solicitado_por": st.session_state.nombre,
+                "jefe_inmediato": jefe_inmediato
+            }
+            response = requests.post(f"{API_URL}/nueva_solicitud", json=data)
+            if response.status_code == 200:
+                st.success("✅ Solicitud registrada con éxito.")
+            else:
+                st.error("❌ Error al registrar la solicitud.")
 
 st.subheader("📚 Mis solicitudes registradas")
 
