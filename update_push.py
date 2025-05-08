@@ -18,7 +18,12 @@ except Exception as e:
 print("✅ URL pública de Ngrok:", public_url)
 
 # 2. Archivos Streamlit a actualizar
-modulos = ["empleado.py", "jefe.py", "rrhh.py"]
+modulos = [
+    "C:/Codigo/Permisos/empleado.py",
+    "C:/Codigo/Permisos/jefe.py",
+    "C:/Codigo/Permisos/recursos_humanos.py"
+]
+
 
 for archivo in modulos:
     try:
@@ -39,8 +44,10 @@ for archivo in modulos:
     except Exception as e:
         print(f"❌ Error actualizando {archivo}:", e)
 
-# 3. Hacer git add, commit y push
+repo_dir = "C:/Codigo/Permisos"
+os.chdir(repo_dir)
+
 os.system("git add .")
 os.system(f'git commit -m "Actualización de Ngrok URL: {public_url}"')
-os.system("git push")
+os.system("git push -u origin master")
 print("🚀 Cambios subidos a GitHub.")
