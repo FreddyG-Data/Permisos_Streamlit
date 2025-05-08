@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 import pyodbc
+from flask_cors import CORS
 from datetime import datetime
 
 app = Flask(__name__)
+CORS(app)
 
 def get_db_connection():
     return pyodbc.connect("DSN=Systemclub;UID=Santiago;PWD=1203f", autocommit=True)
