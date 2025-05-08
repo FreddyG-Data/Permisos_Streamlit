@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 from datetime import date, time
 
-API_URL = "https://2468-181-129-180-130.ngrok-free.app"
+API_URL = "https://4f3c-181-129-180-130.ngrok-free.app"
 
 st.title("📄 Solicitud de Permiso de Salida")
 
@@ -30,7 +30,6 @@ if not st.session_state.autenticado:
                 st.session_state.nombre = nombre
                 st.session_state.doc_empleado = response.json()["doc_empleado"]
                 st.success("Inicio de sesión exitoso.")
-                st.rerun()
             else:
                 st.error("Credenciales inválidas o usuario inactivo.")
     st.stop()
@@ -39,6 +38,7 @@ st.subheader("📝 Crear nueva solicitud")
 
 empleados_response = requests.get(f"{API_URL}/empleados_activos")
 empleados = empleados_response.json() if empleados_response.status_code == 200 else []
+st.write("Lista de empleados:", empleados)
 
 with st.form("solicitud_form"):
     fecha_solicitada = st.date_input("Fecha de salida", min_value=date.today())

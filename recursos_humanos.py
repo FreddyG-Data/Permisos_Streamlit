@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-API_URL = "https://2468-181-129-180-130.ngrok-free.app"
+API_URL = "https://4f3c-181-129-180-130.ngrok-free.app"
 USUARIOS_AUTORIZADOS = ["ESTHER JAIMES", "LUDY ARGUELLO"]
 
 st.title("📥 Registro de Solicitudes Recibidas")
@@ -12,6 +12,7 @@ if "rrhh_autenticado" not in st.session_state:
 if not st.session_state.rrhh_autenticado:
     empleados_response = requests.get(f"{API_URL}/empleados_activos")
     empleados = empleados_response.json() if empleados_response.status_code == 200 else []
+    st.write("Lista de empleados:", empleados)
 
     autorizados = [e for e in empleados if e.strip().upper() in [u.upper() for u in USUARIOS_AUTORIZADOS]]
 
@@ -31,7 +32,6 @@ if not st.session_state.rrhh_autenticado:
                 st.session_state.rrhh_autenticado = True
                 st.session_state.nombre_rrhh = nombre
                 st.success("Autenticación exitosa.")
-                st.rerun()
             else:
                 st.error("Credenciales inválidas o usuario no autorizado.")
     st.stop()
