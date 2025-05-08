@@ -9,9 +9,6 @@ time.sleep(2)
 # 1. Obtener la URL pública desde JSON de Ngrok
 try:
     response = requests.get("http://127.0.0.1:4040/api/tunnels")
-    print("📦 JSON recibido:")
-    print(response.text)  # Para depuración
-
     tunnels = response.json()["tunnels"]
     public_url = [t["public_url"] for t in tunnels if t["proto"] == "https"][0]
     print("✅ URL pública extraída:", public_url)
