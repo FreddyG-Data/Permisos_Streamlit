@@ -1,21 +1,23 @@
-import requests
 import time
 import os
 import re
+import requests
 
-# Esperar un poco por si Ngrok aún no está listo
+# Esperar a que Ngrok arranque
 time.sleep(2)
 
-# 1. Obtener la URL pública de Ngrok
+# 1. Obtener la URL pública desde JSON de Ngrok
 try:
     response = requests.get("http://127.0.0.1:4040/api/tunnels")
+    print("📦 JSON recibido:")
+    print(response.text)  # Para depuración
+
     tunnels = response.json()["tunnels"]
     public_url = [t["public_url"] for t in tunnels if t["proto"] == "https"][0]
+    print("✅ URL pública extraída:", public_url)
 except Exception as e:
     print("❌ Error obteniendo la URL de Ngrok:", e)
     exit(1)
-
-print("✅ URL pública de Ngrok:", public_url)
 
 # 2. Archivos Streamlit a actualizar
 modulos = [
@@ -24,7 +26,7 @@ modulos = [
     "C:/Codigo/Permisos/recursos_humanos.py"
 ]
 
-
+# 3. Reemplazar API_URL en los módulos
 for archivo in modulos:
     try:
         with open(archivo, "r", encoding="utf-8") as f:
@@ -44,6 +46,7 @@ for archivo in modulos:
     except Exception as e:
         print(f"❌ Error actualizando {archivo}:", e)
 
+# 4. Push a GitHub
 repo_dir = "C:/Codigo/Permisos"
 os.chdir(repo_dir)
 
