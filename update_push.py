@@ -30,7 +30,7 @@ for archivo in modulos:
             contenido = f.read()
 
         nuevo_contenido = re.sub(
-            r'API_URL\s*=\s*["\']http://localhost:5002["\']',
+            r'API_URL\s*=\s*["\'].*?["\']',
             f'API_URL = "{public_url}"',
             contenido
         )
