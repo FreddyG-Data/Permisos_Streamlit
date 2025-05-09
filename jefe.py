@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 from datetime import datetime
 
-API_URL = "https://9dbf-181-129-180-130.ngrok-free.app"
+API_URL = "https://1114-181-129-180-130.ngrok-free.app"
 
 st.title("🧑‍💼 Aprobación de Permisos - Jefe Inmediato")
 
@@ -16,7 +16,6 @@ if not st.session_state.autenticado_jefe:
     # Obtener lista de empleados activos
     empleados_response = requests.get(f"{API_URL}/empleados_activos")
     empleados = empleados_response.json() if empleados_response.status_code == 200 else []
-    st.write("Lista de empleados:", empleados)
 
     with st.form("login_form_jefe"):
         nombre_jefe = st.selectbox("Nombre de usuario", empleados)
