@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-API_URL = "https://a3ac-181-129-180-130.ngrok-free.app"
+API_URL = "https://8c93-181-129-180-130.ngrok-free.app"
 USUARIOS_AUTORIZADOS = ["ESTHER JAIMES", "LUDY ARGUELLO"]
 
 st.title("📥 Registro de Solicitudes Recibidas")
